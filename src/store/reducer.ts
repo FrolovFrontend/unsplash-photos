@@ -9,7 +9,7 @@ const initialState: RootState = {
   token: '',
 };
 
-type TActions = ISetTokenAction
+type TActions = ISetTokenAction;
 
 export const rootReducer: Reducer<RootState, TActions> = (state = initialState, action) => {
   switch (action.type) {
