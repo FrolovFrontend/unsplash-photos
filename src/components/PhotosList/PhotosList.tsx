@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './photoslist.module.css';
 import { PhotosItem } from './PhotosItem';
+import { unsplash } from '../../utils/unsplash';
+import { toJson } from 'unsplash-js';
 
 interface IPhoto {
   id: string;
@@ -9,16 +11,32 @@ interface IPhoto {
   };
 }
 
-interface IPhotosListProps {
-  list: Array<IPhoto>;
-}
+type TPhotosListData = Array<IPhoto>;
 
-export function PhotosList({list}: IPhotosListProps) {
+export function PhotosList() {
+  const [listPhotos, setListPhotos] = useState<TPhotosListData>([]);
+  const [isLoading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    unsplash.photos
+      .listPhotos(1, 20, 'latest')
+      .then(toJson)
+      .then((json) => {
+        setListPhotos(json);
+        setLoading(false);
+      });
+  }, []);
   return (
-    <ul className={styles.photosList}>
-      {list.map((photo) => (
-        <PhotosItem id={photo.id} image={photo.urls.regular}/>
-      ))}
-    </ul>
+    <div>
+      <ul className={styles.photosList}>
+        {listPhotos.map((photo) => (
+          <PhotosItem id={photo.id} image={photo.urls.regular} key={photo.id}/>
+        ))}
+      </ul>
+      {isLoading && (
+        <div style={{textAlign: 'center', padding: '16px 0'}}>Загрузка...</div>
+      )}
+    </div>
   );
 }
