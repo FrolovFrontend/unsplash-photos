@@ -43,8 +43,8 @@ export function PhotosList() {
     if (bottomOfList.current) {
       observer.observe(bottomOfList.current);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   return (
     <ul className={styles.photosList}>
       {listPhotos.map((photo) => (
