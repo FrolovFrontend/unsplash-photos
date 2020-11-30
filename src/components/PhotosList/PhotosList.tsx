@@ -18,15 +18,15 @@ export function PhotosList() {
   const [isLoading, setLoading] = useState(false);
   const bottomOfList = useRef<HTMLDivElement>(null);
 
-  const [currentPage, setCurrentPage] = useState(1);
-
   useEffect(() => {
+    let pageCount = 1;
+
     async function load() {
       setLoading(true);
       try {
-        const photos = await unsplash.photos.listPhotos(currentPage, 20, 'latest').then(toJson);
+        const photos = await unsplash.photos.listPhotos(pageCount, 20, 'latest').then(toJson);
         setListPhotos(prevPhotos => prevPhotos.concat(...photos));
-        setCurrentPage(prevPage => prevPage++);
+        pageCount++;
       } catch (error) {
         console.log(error);
       }
@@ -43,7 +43,7 @@ export function PhotosList() {
     if (bottomOfList.current) {
       observer.observe(bottomOfList.current);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <ul className={styles.photosList}>
