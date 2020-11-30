@@ -12,6 +12,7 @@ import thunk from 'redux-thunk';
 import { Provider, useDispatch } from 'react-redux';
 import { setToken } from './store/actions';
 import { loadState, saveState } from './utils/localStorage';
+import { Photo } from './pages/Photo';
 
 const persistedState = loadState();
 
@@ -41,6 +42,9 @@ function App() {
             </Route>
             <Route path='/auth'>
               <Home/>
+            </Route>
+            <Route path='/photo/:id'>
+              <Photo/>
             </Route>
           </Switch>
         </Layout>

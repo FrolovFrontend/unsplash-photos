@@ -6,6 +6,7 @@ import { toJson } from 'unsplash-js';
 
 interface IPhoto {
   id: string;
+  color: string;
   urls: {
     regular: string;
   };
@@ -48,7 +49,12 @@ export function PhotosList() {
   return (
     <ul className={styles.photosList}>
       {listPhotos.map((photo) => (
-        <PhotosItem id={photo.id} image={photo.urls.regular} key={photo.id}/>
+        <PhotosItem
+          id={photo.id}
+          image={photo.urls.regular}
+          color={photo.color}
+          key={photo.id}
+        />
       ))}
       <div ref={bottomOfList}></div>
       {isLoading && (
