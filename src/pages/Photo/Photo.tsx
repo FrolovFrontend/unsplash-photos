@@ -3,7 +3,7 @@ import styles from './photo.module.css';
 import { unsplash } from '../../utils/unsplash';
 import { toJson } from 'unsplash-js';
 import { useParams } from 'react-router-dom';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 interface IPhotoData {
   urls: {
@@ -22,10 +22,13 @@ interface IPhotoData {
   }
 }
 
+interface IParams {
+  id: string;
+}
+
 export function Photo() {
   const [photo, setPhoto] = useState<IPhotoData | null>(null);
-  // @ts-ignore
-  const {id} = useParams();
+  const {id} = useParams<IParams>();
   const history = useHistory();
 
   useEffect(() => {
@@ -40,12 +43,12 @@ export function Photo() {
     }
 
     loadPhoto();
-  }, []);
+  }, [id]);
   return (
     <div className={styles.photo}>
       <button onClick={history.goBack}>Назад</button>
       <div className={styles.photoContainer}>
-        <img src={photo?.urls.regular} alt={photo?.alt_description}/>
+        <img src={photo?.urls.regular} alt={photo ? photo.alt_description : ''}/>
       </div>
     </div>
   );

@@ -1,16 +1,13 @@
-import React, { useEffect } from 'react';
+import React  from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import { Auth } from './pages/Auth';
 import { Home } from './pages/Home';
-import { unsplash } from './utils/unsplash';
-import { toJson } from 'unsplash-js';
 import { applyMiddleware, createStore } from 'redux';
 import { rootReducer } from './store/reducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
-import { Provider, useDispatch } from 'react-redux';
-import { setToken } from './store/actions';
+import { Provider } from 'react-redux';
 import { loadState, saveState } from './utils/localStorage';
 import { Photo } from './pages/Photo';
 
