@@ -8,15 +8,12 @@ import { photosListRequestAsync, TPhotosListData } from '../../store/photosList/
 export function PhotosList() {
   const listPhotos = useSelector<RootState, TPhotosListData>(state => state.photos.photosData);
   const isLoading = useSelector<RootState, boolean>(state => state.photos.isLoading);
-  // const errorValue = useSelector<RootState, string>(state => state.photosList.error);
+  const errorValue = useSelector<RootState, string>(state => state.photos.error);
   const dispatch = useDispatch();
 
   const bottomOfList = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!listPhotos) {
-      dispatch(photosListRequestAsync());
-    }
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
         dispatch(photosListRequestAsync());
@@ -24,7 +21,7 @@ export function PhotosList() {
     }, {
       rootMargin: '100px',
     });
-    if (bottomOfList.current) {
+    if (bottomOfList.current && !isLoading && !errorValue) {
       observer.observe(bottomOfList.current);
     }
   }, [bottomOfList.current]);

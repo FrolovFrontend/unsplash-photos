@@ -35,7 +35,7 @@ export const photosListReducer: Reducer<IPhotosListState, TPhotosListActions> = 
     case PHOTOS_LIST_REQUEST_SUCCESS:
       return {
         ...state,
-        photosData: action.photosData,
+        photosData: state.photosData.concat(...action.photosData),
         isLoading: false,
       };
     case PHOTOS_LIST_REQUEST_ERROR:

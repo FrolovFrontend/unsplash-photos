@@ -20,15 +20,7 @@ export const initialState: RootState = {
     isLoading: false,
     error: '',
     pageCount: 1,
-    photosData: [
-      {
-        id: 'test',
-        urls: {
-          regular: 'test',
-        },
-        color: 'test',
-      },
-    ],
+    photosData: [],
   },
 };
 

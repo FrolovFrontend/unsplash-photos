@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import { Auth } from './pages/Auth';
@@ -8,22 +8,12 @@ import { rootReducer } from './store/reducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
-import { loadState, saveState } from './utils/localStorage';
 import { Photo } from './pages/Photo';
-
-const persistedState = loadState();
 
 const store = createStore(
   rootReducer,
-  persistedState,
   composeWithDevTools(applyMiddleware(thunk)),
 );
-
-store.subscribe(() => {
-  return saveState({
-    token: store.getState().token,
-  });
-});
 
 function App() {
   return (
