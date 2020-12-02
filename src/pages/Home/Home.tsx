@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import { Content } from '../../components/Content';
 import { PhotosList } from '../../components/PhotosList';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../store/reducer';
 import { unsplash } from '../../utils/unsplash';
 import { toJson } from 'unsplash-js';
 import { setToken } from '../../store/actions';
+import { useDispatch } from 'react-redux';
+
 
 export function Home() {
-  const token = useSelector<RootState, string>(state => state.token);
+  const token = localStorage.getItem('token');
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -21,13 +21,17 @@ export function Home() {
           .then((json: any) => {
             unsplash.auth.setBearerToken(json.access_token);
             dispatch(setToken(json.access_token));
+            localStorage.setItem('token', json.access_token);
           })
           .catch((error: Error) => {
             console.log(error);
           });
       }
     }
-  }, [token]);
+    if (token) {
+      dispatch(setToken(token));
+    }
+  }, [token, dispatch]);
 
   return (
     <Content>
