@@ -1,10 +1,17 @@
 :root {
-  --black: #333333;
-  --orange: #cc6633;
+  --black: #24292e;
+  --white: #ffffff;
+  --red: #f15151;
+  --blue: #04f;
+  --gray: #f3f3f3;
+  --dark-gray: #949596;
 }
 
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
 }
 
 body {
@@ -17,8 +24,6 @@ body {
 }
 
 ul {
-  margin: 0;
-  padding: 0;
   list-style: none;
 }
 
@@ -32,4 +37,9 @@ button {
   background: transparent;
   cursor: pointer;
   font: inherit;
+}
+
+img {
+  display: block;
+  width: 100%;
 }

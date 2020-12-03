@@ -22,6 +22,13 @@ export interface IPhoto {
   urls: {
     regular: string;
   };
+  liked_by_user: boolean;
+  user: {
+    username: string;
+    profile_image: {
+      small: string;
+    }
+  }
 }
 
 export type TPhotosListData = Array<IPhoto>;
