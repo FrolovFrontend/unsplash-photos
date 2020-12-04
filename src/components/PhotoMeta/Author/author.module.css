@@ -1,0 +1,40 @@
+.user {
+  display: flex;
+  align-items: center;
+}
+
+.user:hover .avatarWrap {
+  border: 2px solid var(--blue);
+}
+
+.user:hover .name.onsurface {
+  color: var(--blue);
+}
+
+.avatarWrap {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 8px;
+  border: 2px solid transparent;
+  padding: 1px;
+}
+
+.image {
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+}
+
+.name {
+  color: var(--white);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 0 0 4px;
+}
+
+.name.onsurface {
+  color: var(--black);
+}

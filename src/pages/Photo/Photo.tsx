@@ -4,51 +4,66 @@ import { unsplash } from '../../utils/unsplash';
 import { toJson } from 'unsplash-js';
 import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
-
-interface IPhotoData {
-  urls: {
-    regular: string;
-  };
-  alt_description: string;
-  user: {
-    first_name: string;
-    last_name: string;
-    links: {
-      html: string;
-    };
-    profile_image: {
-      medium: string;
-    };
-  }
-}
+import { IPhoto } from '../../store/photosList/actions';
+import { PhotoView } from '../../components/PhotoView';
+import { PhotoMeta } from '../../components/PhotoMeta';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store/reducer';
+import { photoRequestAsync, photoReset } from '../../store/photo/actions';
 
 interface IParams {
   id: string;
 }
 
 export function Photo() {
-  const [photo, setPhoto] = useState<IPhotoData | null>(null);
+  const dispatch = useDispatch();
+  const token = useSelector<RootState, string>(state => state.token);
+  const photo = useSelector<RootState, Partial<IPhoto>>(state => state.photo.photo);
+
   const {id} = useParams<IParams>();
   const history = useHistory();
 
   useEffect(() => {
-    async function loadPhoto() {
-      try {
-        const photoData = await unsplash.photos
-          .getPhoto(id).then(toJson);
-        setPhoto(photoData);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
-    loadPhoto();
+    dispatch(photoRequestAsync(id));
   }, [id]);
+
+  const handleBack = () => {
+    history.goBack();
+    dispatch(photoReset());
+  };
+
+  const handleLike = (id: string) => {
+    unsplash.auth.setBearerToken(token);
+
+    console.log(id);
+    unsplash.photos
+      .likePhoto(id)
+      .then(toJson)
+      .then(json => {
+        console.log(json);
+      });
+  };
   return (
     <div className={styles.photo}>
-      <button onClick={history.goBack}>Назад</button>
-      <div className={styles.photoContainer}>
-        <img src={photo?.urls.regular} alt={photo ? photo.alt_description : ''}/>
+      <button onClick={handleBack}>Назад</button>
+
+      <div className={styles.container}>
+        <PhotoMeta
+          avatar={photo.user?.profile_image.small}
+          username={photo.user?.username}
+          authorLink={photo.user?.links.html}
+          hasLike={photo?.liked_by_user}
+          likeCount={photo?.likes}
+          onclick={() => handleLike(id)}
+          hasButton
+          onSurface
+        />
+        <div className={styles.break}></div>
+        <PhotoView
+          url={photo.urls?.regular}
+          description={photo?.alt_description}
+          color={photo?.color}
+        />
       </div>
     </div>
   );

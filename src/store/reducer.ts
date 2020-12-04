@@ -2,16 +2,31 @@ import { Reducer } from 'redux';
 import { ISetTokenAction, SET_TOKEN } from './actions';
 import { IPhotosListState, photosListReducer } from './photosList/reducer';
 import {
-  IPhotosListRequestAction, IPhotosListRequestErrorAction, IPhotosListRequestSuccessAction, IPhotosListSetPageAction,
+  IPhotosListRequestAction,
+  IPhotosListRequestErrorAction,
+  IPhotosListRequestSuccessAction,
+  IPhotosListSetPageAction,
   PHOTOS_LIST_REQUEST,
   PHOTOS_LIST_REQUEST_ERROR,
   PHOTOS_LIST_REQUEST_SUCCESS,
   PHOTOS_LIST_SET_PAGE,
 } from './photosList/actions';
+import { IPhotoState, photoReducer } from './photo/reducer';
+import {
+  IPhotoRequestAction,
+  IPhotoRequestErrorAction,
+  IPhotoRequestSuccessAction,
+  IPhotoResetAction,
+  PHOTO_REQUEST,
+  PHOTO_REQUEST_ERROR,
+  PHOTO_REQUEST_SUCCESS,
+  PHOTO_RESET,
+} from './photo/actions';
 
 export interface RootState {
   token: string;
   photos: IPhotosListState;
+  photo: IPhotoState;
 }
 
 export const initialState: RootState = {
@@ -22,14 +37,23 @@ export const initialState: RootState = {
     pageCount: 1,
     photosData: [],
   },
+  photo: {
+    isLoading: false,
+    error: '',
+    photo: {},
+  },
 };
 
 type TActions =
-  ISetTokenAction |
-  IPhotosListRequestAction |
-  IPhotosListRequestSuccessAction |
-  IPhotosListRequestErrorAction |
-  IPhotosListSetPageAction;
+  ISetTokenAction
+  | IPhotosListRequestAction
+  | IPhotosListRequestSuccessAction
+  | IPhotosListRequestErrorAction
+  | IPhotosListSetPageAction
+  | IPhotoRequestAction
+  | IPhotoRequestSuccessAction
+  | IPhotoRequestErrorAction
+  | IPhotoResetAction;
 
 export const rootReducer: Reducer<RootState, TActions> = (state = initialState, action) => {
   switch (action.type) {
@@ -45,6 +69,14 @@ export const rootReducer: Reducer<RootState, TActions> = (state = initialState, 
       return {
         ...state,
         photos: photosListReducer(state.photos, action),
+      };
+    case PHOTO_REQUEST:
+    case PHOTO_REQUEST_SUCCESS:
+    case PHOTO_REQUEST_ERROR:
+    case PHOTO_RESET:
+      return {
+        ...state,
+        photo: photoReducer(state.photo, action),
       };
     default:
       return state;
