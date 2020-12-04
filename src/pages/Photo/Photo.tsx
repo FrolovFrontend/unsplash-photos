@@ -9,7 +9,7 @@ import { PhotoView } from '../../components/PhotoView';
 import { PhotoMeta } from '../../components/PhotoMeta';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/reducer';
-import { photoRequestAsync, photoReset } from '../../store/photo/actions';
+import { photoLikeAsync, photoRequestAsync, photoReset } from '../../store/photo/actions';
 
 interface IParams {
   id: string;
@@ -33,15 +33,7 @@ export function Photo() {
   };
 
   const handleLike = (id: string) => {
-    unsplash.auth.setBearerToken(token);
-
-    console.log(id);
-    unsplash.photos
-      .likePhoto(id)
-      .then(toJson)
-      .then(json => {
-        console.log(json);
-      });
+    dispatch(photoLikeAsync(id));
   };
   return (
     <div className={styles.photo}>

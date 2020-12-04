@@ -13,10 +13,11 @@ import {
 } from './photosList/actions';
 import { IPhotoState, photoReducer } from './photo/reducer';
 import {
+  IPhotoLikeAction,
   IPhotoRequestAction,
   IPhotoRequestErrorAction,
   IPhotoRequestSuccessAction,
-  IPhotoResetAction,
+  IPhotoResetAction, PHOTO_LIKE,
   PHOTO_REQUEST,
   PHOTO_REQUEST_ERROR,
   PHOTO_REQUEST_SUCCESS,
@@ -53,7 +54,8 @@ type TActions =
   | IPhotoRequestAction
   | IPhotoRequestSuccessAction
   | IPhotoRequestErrorAction
-  | IPhotoResetAction;
+  | IPhotoResetAction
+  | IPhotoLikeAction;
 
 export const rootReducer: Reducer<RootState, TActions> = (state = initialState, action) => {
   switch (action.type) {
@@ -74,6 +76,7 @@ export const rootReducer: Reducer<RootState, TActions> = (state = initialState, 
     case PHOTO_REQUEST_SUCCESS:
     case PHOTO_REQUEST_ERROR:
     case PHOTO_RESET:
+    case PHOTO_LIKE:
       return {
         ...state,
         photo: photoReducer(state.photo, action),
