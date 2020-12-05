@@ -70,16 +70,26 @@ export const photoLikeAsync = (id: string): ThunkAction<void, RootState, unknown
     });
 };
 
-// export const PHOTO_UNLIKE = 'PHOTO_UNLIKE';
-//
-// export interface IPhotoUnlikeAction {
-//   type: typeof PHOTO_UNLIKE;
-// }
-//
-// export const photoUnlike: ActionCreator<IPhotoUnlikeAction> = () => ({
-//   type: PHOTO_UNLIKE,
-// });
+export const PHOTO_UNLIKE = 'PHOTO_UNLIKE';
 
+export interface IPhotoUnlikeAction {
+  type: typeof PHOTO_UNLIKE;
+}
+
+export const photoUnlike: ActionCreator<IPhotoUnlikeAction> = () => ({
+  type: PHOTO_UNLIKE,
+});
+
+export const photoUnlikeAsync = (id: string): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
+  dispatch(photoUnlike());
+  unsplash.auth.setBearerToken(getState().token);
+  unsplash.photos
+    .unlikePhoto(id)
+    .then(toJson)
+    .then(json => {
+      console.log(json);
+    });
+};
 
 export const photoRequestAsync = (id: string): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch) => {
   dispatch(photoRequest());
