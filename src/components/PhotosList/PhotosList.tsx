@@ -13,18 +13,6 @@ export function PhotosList() {
 
   const bottomOfList = useRef<HTMLDivElement>(null);
 
-  // const handleLike = (id: string) => {
-  //   unsplash.auth.setBearerToken(token);
-  //
-  //   console.log(id)
-  //   unsplash.photos
-  //     .likePhoto(id)
-  //     .then(toJson)
-  //     .then(json => {
-  //       console.log(json);
-  //     });
-  // };
-
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {

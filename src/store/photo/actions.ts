@@ -49,6 +49,48 @@ export const photoReset: ActionCreator<IPhotoResetAction> = () => ({
   type: PHOTO_RESET,
 });
 
+export const PHOTO_LIKE = 'PHOTO_LIKE';
+
+export interface IPhotoLikeAction {
+  type: typeof PHOTO_LIKE;
+}
+
+export const photoLike: ActionCreator<IPhotoLikeAction> = () => ({
+  type: PHOTO_LIKE,
+});
+
+export const photoLikeAsync = (id: string): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
+  dispatch(photoLike());
+  unsplash.auth.setBearerToken(getState().token);
+  unsplash.photos
+    .likePhoto(id)
+    .then(toJson)
+    .then(json => {
+      console.log(json);
+    });
+};
+
+export const PHOTO_UNLIKE = 'PHOTO_UNLIKE';
+
+export interface IPhotoUnlikeAction {
+  type: typeof PHOTO_UNLIKE;
+}
+
+export const photoUnlike: ActionCreator<IPhotoUnlikeAction> = () => ({
+  type: PHOTO_UNLIKE,
+});
+
+export const photoUnlikeAsync = (id: string): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
+  dispatch(photoUnlike());
+  unsplash.auth.setBearerToken(getState().token);
+  unsplash.photos
+    .unlikePhoto(id)
+    .then(toJson)
+    .then(json => {
+      console.log(json);
+    });
+};
+
 export const photoRequestAsync = (id: string): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch) => {
   dispatch(photoRequest());
   unsplash.photos

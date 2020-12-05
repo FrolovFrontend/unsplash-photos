@@ -9,7 +9,8 @@ import { PhotoView } from '../../components/PhotoView';
 import { PhotoMeta } from '../../components/PhotoMeta';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/reducer';
-import { photoRequestAsync, photoReset } from '../../store/photo/actions';
+import { photoLikeAsync, photoRequestAsync, photoReset, photoUnlikeAsync } from '../../store/photo/actions';
+import { setToken } from '../../store/actions';
 
 interface IParams {
   id: string;
@@ -17,13 +18,19 @@ interface IParams {
 
 export function Photo() {
   const dispatch = useDispatch();
-  const token = useSelector<RootState, string>(state => state.token);
+  const token = localStorage.getItem('token');
   const photo = useSelector<RootState, Partial<IPhoto>>(state => state.photo.photo);
 
   const {id} = useParams<IParams>();
   const history = useHistory();
 
   useEffect(() => {
+    if (token) {
+      unsplash.auth.setBearerToken(token);
+      dispatch(setToken(token));
+    } else if (!token) {
+      handleBack();
+    }
     dispatch(photoRequestAsync(id));
   }, [id]);
 
@@ -33,16 +40,17 @@ export function Photo() {
   };
 
   const handleLike = (id: string) => {
-    unsplash.auth.setBearerToken(token);
-
-    console.log(id);
-    unsplash.photos
-      .likePhoto(id)
-      .then(toJson)
-      .then(json => {
-        console.log(json);
-      });
+    dispatch(photoLikeAsync(id));
   };
+
+  const handleUnlike = (id: string) => {
+    dispatch(photoUnlikeAsync(id));
+  };
+
+  const handleToggleLike = (id: string, hasLike?: boolean) => {
+    hasLike ? handleUnlike(id) : handleLike(id);
+  };
+
   return (
     <div className={styles.photo}>
       <button onClick={handleBack}>Назад</button>
@@ -54,7 +62,7 @@ export function Photo() {
           authorLink={photo.user?.links.html}
           hasLike={photo?.liked_by_user}
           likeCount={photo?.likes}
-          onclick={() => handleLike(id)}
+          onclick={() => handleToggleLike(id, photo?.liked_by_user)}
           hasButton
           onSurface
         />
