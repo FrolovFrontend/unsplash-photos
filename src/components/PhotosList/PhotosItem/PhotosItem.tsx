@@ -8,6 +8,7 @@ interface IPhotosItemProps {
   image: string;
   color: string;
   username: string;
+  createdAt?: string;
   avatar: string;
   authorLink: string
 }
@@ -18,6 +19,7 @@ export function PhotosItem(props: IPhotosItemProps) {
     image,
     color,
     username,
+    createdAt,
     avatar,
     authorLink,
   } = props;
@@ -29,6 +31,7 @@ export function PhotosItem(props: IPhotosItemProps) {
           authorLink={authorLink}
           avatar={avatar}
           username={username}
+          createdAt={createdAt}
         />
       </div>
       <Link to={`/photo/${id}`} className={styles.link}>

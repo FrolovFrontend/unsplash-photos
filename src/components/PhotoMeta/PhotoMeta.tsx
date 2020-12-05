@@ -7,6 +7,7 @@ interface IPhotoMetaProps {
   authorLink?: string;
   avatar?: string;
   username?: string;
+  createdAt?: string;
   hasButton?: boolean;
   hasLike?: boolean;
   likeCount?: number;
@@ -19,6 +20,7 @@ export function PhotoMeta(props: IPhotoMetaProps) {
     authorLink,
     avatar,
     username,
+    createdAt,
     hasButton = false,
     hasLike,
     likeCount,
@@ -33,6 +35,7 @@ export function PhotoMeta(props: IPhotoMetaProps) {
         avatar={avatar}
         link={authorLink}
         onSurface={onSurface}
+        createdAt={createdAt}
       />
       {hasButton && (
         <LikeButton

@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/reducer';
 import { photoLikeAsync, photoRequestAsync, photoReset, photoUnlikeAsync } from '../../store/photo/actions';
 import { setToken } from '../../store/actions';
+import { convertDate } from '../../utils/convertDate';
 
 interface IParams {
   id: string;
@@ -62,6 +63,7 @@ export function Photo() {
           authorLink={photo.user?.links.html}
           hasLike={photo?.liked_by_user}
           likeCount={photo?.likes}
+          createdAt={convertDate(photo.created_at)}
           onclick={() => handleToggleLike(id, photo?.liked_by_user)}
           hasButton
           onSurface

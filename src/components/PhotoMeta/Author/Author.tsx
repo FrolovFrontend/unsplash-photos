@@ -4,6 +4,7 @@ import classNames from 'classnames';
 
 interface IAuthorProps {
   name?: string;
+  createdAt?: string;
   avatar?: string;
   onSurface?: boolean;
   link?: string;
@@ -12,6 +13,7 @@ interface IAuthorProps {
 export function Author(props: IAuthorProps) {
   const {
     name,
+    createdAt,
     avatar,
     link,
     onSurface,
@@ -19,6 +21,11 @@ export function Author(props: IAuthorProps) {
 
   const nameClasses = classNames(
     styles.name,
+    {[styles.onsurface]: onSurface},
+  );
+
+  const createdAtClasses = classNames(
+    styles.createdAt,
     {[styles.onsurface]: onSurface},
   );
 
@@ -32,6 +39,7 @@ export function Author(props: IAuthorProps) {
         />
       </div>
       <span className={nameClasses}>{name}</span>
+      <span className={createdAtClasses}>{createdAt}</span>
     </a>
   );
 }

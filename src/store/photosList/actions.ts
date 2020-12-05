@@ -23,6 +23,7 @@ export interface IPhoto {
     regular: string;
   };
   alt_description: string;
+  created_at: string;
   liked_by_user: boolean;
   likes: number;
   user: {
