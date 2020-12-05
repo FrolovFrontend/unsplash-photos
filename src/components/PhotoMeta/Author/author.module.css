@@ -28,13 +28,35 @@
   border-radius: 50%;
 }
 
-.name {
+.name, .createdAt {
   color: var(--white);
   font-size: 14px;
-  font-weight: 500;
   padding: 0 0 4px;
+}
+
+.name {
+  font-weight: 500;
 }
 
 .name.onsurface {
   color: var(--black);
+}
+
+.createdAt {
+  position: relative;
+  padding-left: 16px;
+}
+
+.createdAt::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 2px;
+  width: 1px;
+  height: 16px;
+  background-color: var(--gray);
+}
+
+.createdAt.onsurface {
+  color: var(--dark-gray);
 }

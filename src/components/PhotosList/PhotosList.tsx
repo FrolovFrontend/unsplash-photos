@@ -4,6 +4,7 @@ import { PhotosItem } from './PhotosItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/reducer';
 import { photosListRequestAsync, TPhotosListData } from '../../store/photosList/actions';
+import { convertDate } from '../../utils/convertDate';
 
 export function PhotosList() {
   const listPhotos = useSelector<RootState, TPhotosListData>(state => state.photos.photosData);
@@ -25,6 +26,7 @@ export function PhotosList() {
       observer.observe(bottomOfList.current);
     }
   }, [bottomOfList.current]);
+
   return (
     <>
       <ul className={styles.photosList}>
@@ -35,6 +37,7 @@ export function PhotosList() {
             color={photo.color}
             key={photo.id}
             username={photo.user.username}
+            createdAt={convertDate(photo.created_at)}
             avatar={photo.user.profile_image.small}
             authorLink={photo.user.links.html}
           />
