@@ -6,7 +6,7 @@ const SECRET_TWO = 'YqMZsywzNYUJRLn5pngnQhEc4hYpwdJPnlrEYRlxEn4';
 export const unsplash = new Unsplash({
   accessKey: KEY_TWO,
   secret: SECRET_TWO,
-  callbackUrl: 'https://unsplash-photos-3dza2ptx8.vercel.app/auth',
+  callbackUrl: 'https://unsplash-photos.vercel.app/auth',
   timeout: 1000,
 });
 
