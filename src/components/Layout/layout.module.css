@@ -3,3 +3,15 @@
   margin: 0 auto;
   padding: 0 40px;
 }
+
+@media all and (max-width: 990px) {
+  .layout {
+    padding: 0 16px;
+  }
+}
+
+@media all and (max-width: 600px) {
+  .layout {
+    padding: 0 16px;
+  }
+}

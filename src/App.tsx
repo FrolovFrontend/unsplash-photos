@@ -9,6 +9,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { Photo } from './pages/Photo';
+import { Header } from "./components/Header";
 
 const store = createStore(
   rootReducer,
@@ -20,9 +21,7 @@ function App() {
     <Router>
       <Provider store={store}>
         <Layout>
-          <header>
-            <p>Header</p>
-          </header>
+          <Header/>
           <Switch>
             <Route exact path='/'>
               <Auth/>

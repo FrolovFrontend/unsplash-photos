@@ -2,3 +2,9 @@
   display: flex;
   justify-content: space-between;
 }
+
+@media all and (max-width: 400px){
+  .meta {
+    flex-direction: column;
+  }
+}
