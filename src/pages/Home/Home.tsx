@@ -35,7 +35,6 @@ export function Home() {
 
   return (
     <Content>
-      <h1>Лента</h1>
       <PhotosList/>
     </Content>
   );

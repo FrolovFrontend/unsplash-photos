@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/reducer';
 import { photosListRequestAsync, TPhotosListData } from '../../store/photosList/actions';
 import { convertDate } from '../../utils/convertDate';
+import { Loader } from "../Loader";
 
 export function PhotosList() {
   const listPhotos = useSelector<RootState, TPhotosListData>(state => state.photos.photosData);
@@ -45,7 +46,7 @@ export function PhotosList() {
         <div ref={bottomOfList}></div>
       </ul>
       {isLoading && (
-        <div style={{textAlign: 'center', padding: '16px 0'}}>Загрузка...</div>
+        <Loader/>
       )}
     </>
   );

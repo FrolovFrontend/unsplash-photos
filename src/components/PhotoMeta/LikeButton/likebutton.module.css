@@ -60,3 +60,18 @@
 .svg.active path {
   fill: var(--white);
 }
+
+@media all and (max-width: 400px) {
+  .likes {
+    margin: 12px 0 0;
+  }
+
+  .value {
+    order: 2;
+    margin: 0 0 0 8px;
+  }
+
+  .likeBtn {
+    order: 1;
+  }
+}

@@ -50,3 +50,17 @@
   z-index: 2;
   opacity: 0;
 }
+
+@media all and (max-width: 600px) {
+  .link {
+    padding: 0 0 110%;
+  }
+
+  .link::before {
+    opacity: 1;
+  }
+
+  .meta {
+    opacity: 1;
+  }
+}
