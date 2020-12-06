@@ -1,8 +1,5 @@
 import Unsplash from 'unsplash-js';
 
-// const KEY_ONE = 'n4za6t_uSAlEkNb98ZfAJBeiuIzgNXFYYYJ3WcBMPgs';
-// const SECRET_ONE = 'bFUsl1mCb7sISrCohc5Ro7BdfIokxs62TBtikoZpWfw';
-
 const KEY_TWO = 'taaUgbLbHNSqKLvbiHacy0K2FRLFb1ugm5ufzL1cWyQ';
 const SECRET_TWO = 'YqMZsywzNYUJRLn5pngnQhEc4hYpwdJPnlrEYRlxEn4';
 
