@@ -51,7 +51,7 @@ export function Photo() {
       handleBack();
     }
     dispatch(photoRequestAsync(id));
-  }, [id, token, dispatch, handleBack]);
+  }, [id]);
 
   return (
     <div className={styles.photo}>
