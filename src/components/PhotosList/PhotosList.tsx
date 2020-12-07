@@ -26,7 +26,7 @@ export function PhotosList() {
     if (bottomOfList.current && !isLoading && !errorValue) {
       observer.observe(bottomOfList.current);
     }
-  });
+  }, [bottomOfList.current]);
 
   return (
     <>
