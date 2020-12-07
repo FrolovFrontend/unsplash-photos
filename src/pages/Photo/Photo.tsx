@@ -26,16 +26,6 @@ export function Photo() {
   const {id} = useParams<IParams>();
   const history = useHistory();
 
-  useEffect(() => {
-    if (token) {
-      unsplash.auth.setBearerToken(token);
-      dispatch(setToken(token));
-    } else if (!token) {
-      handleBack();
-    }
-    dispatch(photoRequestAsync(id));
-  }, [id]);
-
   const handleBack = () => {
     history.goBack();
     dispatch(photoReset());
@@ -52,6 +42,16 @@ export function Photo() {
   const handleToggleLike = (id: string, hasLike?: boolean) => {
     hasLike ? handleUnlike(id) : handleLike(id);
   };
+
+  useEffect(() => {
+    if (token) {
+      unsplash.auth.setBearerToken(token);
+      dispatch(setToken(token));
+    } else if (!token) {
+      handleBack();
+    }
+    dispatch(photoRequestAsync(id));
+  }, [id, token, dispatch, handleBack]);
 
   return (
     <div className={styles.photo}>

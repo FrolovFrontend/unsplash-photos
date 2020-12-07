@@ -30,7 +30,7 @@ export function Author(props: IAuthorProps) {
   );
 
   return (
-    <a className={styles.user} href={link} target='_blank'>
+    <a className={styles.user} href={link} target='_blank' rel='noreferrer'>
       <div className={styles.avatarWrap}>
         <img
           className={styles.image}
