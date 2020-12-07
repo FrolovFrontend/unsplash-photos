@@ -31,7 +31,7 @@ export function Home() {
     if (token) {
       dispatch(setToken(token));
     }
-  }, [token, dispatch]);
+  }, [token]);
 
   return (
     <Content>
