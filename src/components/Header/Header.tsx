@@ -9,6 +9,7 @@ export function Header() {
         className={styles.ghLink}
         href="https://github.com/FrolovFrontend/unsplash-photos"
         target='_blank'
+        rel='noreferrer'
       >
         GitHub
         <svg
